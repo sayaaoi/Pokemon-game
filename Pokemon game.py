@@ -1,6 +1,7 @@
 import random
 import time
 import string
+from collections import Counter, defaultdict
 
 
 class Pokemon:
@@ -12,7 +13,7 @@ class Pokemon:
                      'electric': {'fire': 0.5, 'electric': 0.5, 'water': 2.0},
                      'water': {'fire': 2.0, 'electric': 0.5, 'water': 0.5}}
 
-    def __init__(self):
+    def __init__(self, adaptive_ai=False):
         # set the name of the Pokemon
         while True:
             pokemanName = input("Please name your Pokemon (no punctuation): ")
@@ -54,6 +55,13 @@ class Pokemon:
                 print("Sorry, you must pick either 1, 2, or 3.")
                 time.sleep(0.5)
         self.type = pokemanType
+
+        self.adaptive_ai = adaptive_ai
+        if adaptive_ai:
+            # This player will keep track of how many times the opponent
+            # chooses its Pokemon type, to make a theoretically better choice
+            # against them next time:
+            self.opponent_choices = defaultdict(Counter)
 
     # print method
     def __str__(self):
