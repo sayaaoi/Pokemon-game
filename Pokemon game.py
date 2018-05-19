@@ -3,6 +3,12 @@ import time
 import string
 from collections import Counter, defaultdict
 
+# color console output
+black_bold = "\033[1;30m"
+red_col = "\033[91m"
+red_bold = "\033[1;31m"
+endc = "\033[0m"
+
 
 class Pokemon:
     MAX_HIT_POINTS = 100
@@ -24,7 +30,7 @@ class Pokemon:
             if count == len(pokemanName):
                 break
             else:
-                print("Sorry, name cannot include punctuation. ")
+                print(red_col + "Sorry, name cannot include punctuation. " + endc)
                 time.sleep(0.5)
         self.name = pokemanName
 
@@ -34,7 +40,7 @@ class Pokemon:
             if self.MIN_HIT_POINTS <= int(hitPoints) <= self.MAX_HIT_POINTS:
                 break
             else:
-                print("Sorry. Hit points must be between 1 and 100. ")
+                print(red_col + "Sorry. Hit points must be between 1 and 100. " + endc)
                 time.sleep(0.5)
         self.HP = int(hitPoints)
 
@@ -52,7 +58,7 @@ class Pokemon:
                 pokemanType = "water"
                 break
             else:
-                print("Sorry, you must pick either 1, 2, or 3.")
+                print(red_col + "Sorry, you must pick either 1, 2, or 3." + endc)
                 time.sleep(0.5)
         self.type = pokemanType
 
@@ -101,18 +107,18 @@ class Pokemon:
     # determine which player is ahead currently
     def printWhoIsAhead(self, opponent):
         if self.HP > opponent.HP:
-            print(self.name + " is currently ahead!")
+            print(black_bold + self.name + endc + " is currently ahead!")
         elif self.HP < opponent.HP:
-            print(opponent.name + " is currently ahead!")
+            print(black_bold + opponent.name + endc + " is currently ahead!")
         else:
-            print("It's currently a tie!")
+            print(black_bold + "It's currently a tie!" + endc)
 
     # determine the winner of the game
     def determineWinner(self, opponent):
         if self.getHP() <= 0:
-            print(opponent.name + " is the winner!")
+            print(red_bold + opponent.name + " is the winner!" + endc)
         else:
-            print(self.name + " is the winner!")
+            print(red_bold + self.name + " is the winner!" + endc)
 
     # attack method. two Pokemon attack each other until one of them has less than 0 points
     def Attack(self, opponent):
@@ -146,14 +152,18 @@ class Pokemon:
                         self.printWhoIsAhead(opponent)
 
         if not ifWinner:
-            print("It's a tie!")
+            print(red_bold + "It's a tie!" + endc)
         else:
             self.determineWinner(opponent)
         return self, opponent
 
 
 if __name__ == "__main__":
-    print("Hey there, let's start the Pokemon game! \n")
+    # 1. peopple vs people  check
+    # 2. people vs computer
+    # 3. computer vs computer
+
+    print("\nHey there, let's start the Pokemon game! ")
     time.sleep(1)
     print("Player 1, build your Pokemon!")
     print("=================")
